@@ -14,6 +14,6 @@ class Program
         last = Console.ReadLine();
 
         Console.WriteLine();
-        Console.WriteLine($"Your Name is {last}, {first} {last}");
+        Console.WriteLine($"Your Name is {last}, {first} {last}.");
     }
 }
