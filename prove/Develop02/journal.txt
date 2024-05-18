@@ -1,0 +1,4 @@
+Where did you go today that lead to something new?|new|05/17/2024|Daily
+What is something different that happened today?|newer|05/17/2024|Weekly
+What is something different that happened today?|hello|05/17/2024|monthly
+What did you eat today?|food|05/17/2024|yearly
