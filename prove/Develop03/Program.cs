@@ -24,7 +24,7 @@ class Program
             }
             else
             {
-                Console.WriteLine("'quit' to leave, 'reset' to start from the begging");
+                Console.WriteLine("press enter to continue,'quit' to leave, 'reset' to start from the begging");
                 Continue = scrip.RemoveWord();
             }
             scrip.Display();
