@@ -18,11 +18,12 @@ public class Checklist : Goal
         _totalCount = totalCount;
     }
 
+// overrides most of the functions because this class is a little different
     public override string ValueToSave()
     {
         return $"{_goalType},{_pointVal},{_title},{_description},{_active},{_secPoints},{_counter},{_totalCount}";
     }
-
+// gets the other information for the goal that is needed
     public override void AddGoal()
     {
         base.AddGoal();
@@ -36,13 +37,13 @@ public class Checklist : Goal
         _secPoints = int.Parse(g);
 
     }
-
+// displays the rest of the values needed for this class
     public override void Display(bool showActive)
     {
         base.Display(showActive);
         Console.Write($" -- Currently completed: {_counter}/{_totalCount}");
     }
-
+// adds the points for the goal and the bonus points when completed
     public override int AccomplishGoal()
     {
         if (_active)

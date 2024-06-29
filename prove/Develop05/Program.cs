@@ -1,10 +1,12 @@
 using System;
 using System.Runtime.CompilerServices;
+using System.Xml.Serialization;
 
 class Program
 {
     static void Main(string[] args)
     {
+        // Some variables to help with the code
         Goal goal = new Goal();
         List<Goal> goals = [];
         int points = 0;
@@ -13,9 +15,13 @@ class Program
         while (WhatDo != 6)
 
         {
+            // Adds a goal and saves it to the list
+            Console.WriteLine();
+            Console.WriteLine($"You have {points}\n");
             WhatDo = Menu();
             if (WhatDo == 1)
             {
+                // Get the type of goal it is so that it can be set up correctly
                 Console.WriteLine("Goal types");
                 Console.WriteLine("   1. Simple Goal");
                 Console.WriteLine("   2. Eternal Goal");
@@ -43,6 +49,7 @@ class Program
                     checklist.AddGoal();
                     goals.Add(checklist);
                 }
+                // if they don't give a valid input just save it as a simple goal
                 else
                 {
                     Simple simple = new Simple(0, "", "", true);
@@ -52,18 +59,22 @@ class Program
                 Console.WriteLine();
 
             }
+            // Show all the goals and if they are complete
             else if (WhatDo == 2)
             {
                 goal.ShowAll(goals, true);
             }
+            // saves the goals to a .txt file
             else if (WhatDo == 3)
             {
                 goal.Save(goals);
             }
+            // Load some Goals of a txt file
             else if (WhatDo == 4)
             {
                 goal.Load(goals);
             }
+            // Shows goals and asks which one you completed and add points
             else if (WhatDo == 5)
             {
                 goal.ShowAll(goals, false);
@@ -81,10 +92,12 @@ class Program
                     number ++;
                 }
             }
+            // exit message
             else if (WhatDo == 6)
             {
                 Console.WriteLine("Good By");
             }
+            // No valid input
             else
             {
                 Console.WriteLine("Not a valid input");
@@ -92,8 +105,7 @@ class Program
 
         }
     }
-
-
+    //The menu
     static int Menu()
     {
         Console.WriteLine("Menu Options");

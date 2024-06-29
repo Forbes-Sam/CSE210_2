@@ -10,6 +10,7 @@ public class Eternal : Goal
         _active = active;
     }
 
+// returns the point value for when it is completed
     public override int AccomplishGoal()
     {
         return _pointVal;

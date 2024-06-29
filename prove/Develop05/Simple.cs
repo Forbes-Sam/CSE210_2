@@ -8,7 +8,7 @@ public class Simple : Goal
         _description = description;
         _active = active;
     }
-
+// Sets the goal to no longer active and adds the point value
     public override int AccomplishGoal()
     {
         if (_active)

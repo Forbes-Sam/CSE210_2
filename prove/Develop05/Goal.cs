@@ -7,6 +7,7 @@ public class Goal
     protected string _description;
     protected bool _active;
 
+// the start to the AddGoal function for the rest of the children classes
     public virtual void AddGoal()
     {
 
@@ -23,7 +24,7 @@ public class Goal
 
 
     }
-
+// a display function that displays the function along with the show all function
     public virtual void Display(bool showActive)
     {
         string tf = "x";
@@ -37,12 +38,12 @@ public class Goal
         }
         Console.Write($"{_title} ({_description})");
     }
-
+// blank function to be used be each class based of what it is
     public virtual int AccomplishGoal()
     {
         return 0;
     }
-
+// Save all of the goals 
     public void Save(List<Goal> goals)
     {
         string saveData = "";
@@ -64,7 +65,9 @@ public class Goal
         File.WriteAllText("save.txt", saveData);
     }
 
-public void Load(List<Goal> _goals)
+// Gemini helped me write this function
+// Loads the txt file save.txt
+    public void Load(List<Goal> _goals)
 {
     try
     {
@@ -127,11 +130,12 @@ public void Load(List<Goal> _goals)
         Console.WriteLine($"Error loading goals: {ex.Message}");
     }
 }
-
+// returns a function for the Save function
     public virtual string ValueToSave()
     {
         return $"{_goalType},{_pointVal},{_title},{_description},{_active}";
     }
+//Shows all of the goals in the main list and weather or not to show it checked off or not
     public void ShowAll(List<Goal> goals, bool showActive)
     {
         int number = 1;
