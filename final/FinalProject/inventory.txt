@@ -1,0 +1,4 @@
+Inventory
+Wire,0,1500
+Plug,1,8000
+Switch,2,10000
