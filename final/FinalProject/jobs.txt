@@ -1,0 +1,2 @@
+Jobs(address,active,cost,employee(firstname:lastname:money:employsNum:contractor:amountOwed),items(item:quantity:itemNum))
+1148 canvas drive,true,4800,Sam:Forbes:50.5:1:false:0,Wire:20:1,Plug:80:2,Switch:100:3 

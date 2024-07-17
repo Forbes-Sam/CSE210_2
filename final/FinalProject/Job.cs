@@ -5,9 +5,9 @@ public class Job
     protected List<Item> _neededItems;
     protected bool _active;
     protected float _cost;
-    protected int _onTheJob;
+    protected Employs _onTheJob;
 
-    public Job(string address, List<Item> items, bool active, float cost, int job)
+    public Job(string address, List<Item> items, bool active, float cost, Employs job)
     {
         _address = address;
         _neededItems = items;
@@ -15,6 +15,11 @@ public class Job
         _cost = cost;
         _onTheJob = job;
     }
+
+    public Job()
+    {
+    }
+
     public void CreateJob()
     {
         Console.WriteLine("What is the address");
@@ -64,8 +69,14 @@ public class Job
             i.Display();
         }
         Console.WriteLine("Which employ do you want on the job?");
-        int whatEmpoly = int.Parse(Console.ReadLine());
-        _onTheJob = whatEmpoly;
+        int whatNum = int.Parse(Console.ReadLine());
+        foreach (Employs i in employs)
+        {
+            if (i._employsNum == whatNum)
+            {
+                _onTheJob = i;
+            }
+        }
     }
 
     public void AddMaterial()
@@ -110,10 +121,11 @@ public class Job
 
     public virtual void DisplayJob()
     {
-        Console.WriteLine($"{_address}:");
+        Console.Write($"{_address}:");
         Console.WriteLine($"    Cost: ${_cost}");
-        Console.WriteLine($"    Employee: {_onTheJob}");
-        Console.WriteLine( "    Items:");
+        Console.WriteLine($"Employee:");
+        _onTheJob.Display();
+        Console.WriteLine( "Items:");
         foreach (Item i in _neededItems)
         {
             Console.Write( "     ");
