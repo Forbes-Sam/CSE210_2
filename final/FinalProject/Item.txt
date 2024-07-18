@@ -1,5 +1,7 @@
 Inventory(ItemNum,Item,Quantity)
-Wire,1440,1
-Plug,6900,2
-Switch,9820,3
+Wire,1400,1
+Plug,6670,2
+Switch,9720,3
 1 Gang Box,9800,4
+disc lights,0,5
+Can Lights,900,6

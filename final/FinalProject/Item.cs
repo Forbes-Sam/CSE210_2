@@ -1,7 +1,7 @@
 public class Item
 {
     private string _item;
-    public int _itemNumber;
+    private int _itemNumber;
     private int _quantity;
 
     public Item(string item, int num, int itemNumber)
@@ -15,6 +15,14 @@ public class Item
         _item = "";
         _quantity = 0;
         _itemNumber = 0;
+    }
+    public int ItemNum()
+    {
+        return _itemNumber;
+    }
+    public int Quantity()
+    {
+        return _quantity;
     }
 
     public void NewItem()
@@ -58,5 +66,9 @@ public class Item
         {
         return ($"{_item},{_quantity},{_itemNumber}");
         }
+    }
+    public string ReportDisplay()
+    {
+        return ($"  {_itemNumber}: {_item} {_quantity}\n");
     }
 }

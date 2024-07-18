@@ -4,17 +4,39 @@ class Program
     {
         Load load = new Load();
         Save save = new Save();
+        Password password = new Password();
         List<Item> Inventory;
         List<Employs> employs;
         List <Job> jobs;
-        bool run = true;
+        bool run = false;
+        bool correctUserName = false;
+        int passwordCounter = 1;
+        while (!run)
+        {
+            while (passwordCounter > 5)
+            {}
+            if (!correctUserName)
+            {
+                Console.Write("Username(username):");
+                correctUserName = password.CheckUserName(Console.ReadLine());
+            }
+            else if (correctUserName)
+            {
+                Console.Write("Password(password):");
+                run = password.CheckPassword(Console.ReadLine());
+                passwordCounter++;
+            }
+            
+        }
+        Console.Clear();
+
 
         while (run)
         {
             Inventory = load.LoadInventory("item.txt");
             employs = load.LoadEmploys("employs.txt");
             jobs = load.LoadJob("jobs.txt");
-
+            Console.Clear();
             Console.WriteLine("Menu");
             Console.WriteLine(" 1.Jobs");
             Console.WriteLine(" 2.Inventory");
@@ -36,7 +58,15 @@ class Program
 
                 if (whatToDo == 1)
                 {
+
                     DisplayJobs(jobs);
+                    Console.WriteLine("0.Quite");
+                    Console.Write("What Job do you want to update: ");
+                    int jobToUpdate = int.Parse(Console.ReadLine());
+                    Console.Clear();
+                    jobs[jobToUpdate].UpdateJob();
+                    save.SaveJobs("jobs.txt",jobs);
+                    
                 }
                 else if (whatToDo == 2)
                 {
@@ -60,16 +90,17 @@ class Program
                 else if (whatToDo == 3)
                 {
                     DisplayJobs(jobs);
-                    Console.Write("\nWhich job would you like to remove(number and street address): ");
-                    string rem = Console.ReadLine();
+                    Console.Write("\nWhich job would you like to remove: ");
+                    int rem = int.Parse(Console.ReadLine());
                     for (int i = 0; jobs.Count() > i; i++)
                     {
-                        if (jobs[i].Remove(rem))
+                        if (i == rem)
                         {
-                            Job jobRem = jobs[i];
-                            jobs.Remove(jobRem);
+                            Job j = jobs[i];
+                            jobs.Remove(j);
                         }
                     }
+                    save.SaveJobs("jobs.txt", jobs);
                 }
                 else
                 {
@@ -88,7 +119,10 @@ class Program
 
                 if (whatToDo == 1)
                 {
+                    Console.Clear();
                     DisplayItem(Inventory);
+                    Console.Write("enter to continue");
+                    string i = Console.ReadLine();
                 }
                 else if (whatToDo == 2)
                 {
@@ -111,12 +145,22 @@ class Program
                             if (RA == 1)
                             {
                                 foreach (Item i in Inventory)
-                                {i.AddInv(howMuch);}
+                                {
+                                    if (i.ItemNum() == quite)
+                                    {
+                                        i.AddInv(howMuch);
+                                    }
+                                }
                             }
                             else if (RA == 2)
                             {
                                 foreach (Item i in Inventory)
-                                {i.RemoveInv(howMuch);}
+                                {
+                                    if (i.ItemNum() == quite)
+                                    {
+                                        i.RemoveInv(howMuch);
+                                    }
+                                }
                             }
                         }
                     }
@@ -145,7 +189,10 @@ class Program
 
                 if (whatToDo == 1)
                 {
+                    Console.Clear();
                     DisplayEmploys(employs);
+                    Console.Write("enter to continue");
+                    string i = Console.ReadLine();
                 }
                 else if (whatToDo == 2)
                 {
@@ -175,7 +222,10 @@ class Program
                 }
             }
             else if (whatDo == 4)
-            {}
+            {
+                Report report = new Report();
+                report.CreateList();
+            }
             else if (whatDo == 5)
             {
                 run = false;
@@ -191,8 +241,11 @@ class Program
 
     static void DisplayJobs(List<Job> jobs)
     {
+        int n = 0;
         foreach (Job i in jobs)
         {
+            Console.Write($"{n}. ");
+            n ++;
             i.DisplayJob();
             Console.WriteLine();
         }

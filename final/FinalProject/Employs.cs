@@ -1,3 +1,5 @@
+using System.Diagnostics.Contracts;
+
 public class Employs
 {
     private string _firstName;
@@ -5,7 +7,7 @@ public class Employs
     protected float _money;
     private int _employsNum;
     private bool _contractor;
-    private float _amountOwed;
+    
 
     public Employs(string firstname, string lastname, float money, int employs, bool contractor )
     {
@@ -46,19 +48,31 @@ public class Employs
         }
         Load load = new Load();
         List<Employs> employs = load.LoadEmploys("employs.txt");
-        _employsNum = employs.Count()+1;
+        _employsNum = (employs[employs.Count()]).GetID() + 1;
     }
-    public virtual void Display()
+    public void Display()
     {
         Console.WriteLine($"{_employsNum}: {_firstName} {_lastName}");
-        Console.WriteLine($"    Wage: ${_money}");
+        
 
 
         if (_contractor)
         {
+            Console.WriteLine($"${_money} per Job");
             Console.WriteLine($"Contractor");
         }
+        else
+        {
+            Console.WriteLine($"Hourly rate: ${_money}");
+        }
+        
     }
+    public bool Contractor()
+    {
+        return _contractor;
+    }
+    public string ReportDisplay()
+    {return($"{_employsNum}: {_firstName} {_lastName}, ${_money}");}
 
     public string SaveFormat(int format)
     {

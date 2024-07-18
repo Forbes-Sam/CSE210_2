@@ -19,6 +19,27 @@ public class Rough : Job
     public Rough()
     {}
 
+    public override void UpdateJob()
+    {
+        base.UpdateJob();
+        if (_roughDone == false)
+        {
+            Console.Write("Did the Rough Get Finished(yes,no): ");
+            string doWhat = Console.ReadLine();
+
+            if (doWhat == "yes")
+            {_roughDone = true;}
+        }
+        Console.Write("Did the Trim Get Finished(yes,no): ");
+        string what = Console.ReadLine();
+        if (what == "yes")
+        {
+            _trimDone = true;
+        }
+
+        
+
+    }
     public override void CreateJob()
     {
         base.CreateJob();
@@ -30,6 +51,7 @@ public class Rough : Job
 
     public override void DisplayJob()
     {
+        Console.WriteLine(_company);
         Console.WriteLine($"{_address}:");
         Console.WriteLine($"Cost: ${_cost}");
         _onTheJob.Display();
@@ -63,6 +85,33 @@ public class Rough : Job
         foreach (Item i in _neededItems)
         {
             toReturn = toReturn + "," + i.SaveFormat(2);
+        } 
+        return toReturn;
+    }
+
+    public override string ReportDisplay()
+    {
+        string toReturn = ($"{_address}: ${_cost}\nEmployee:\n{_onTheJob.ReportDisplay()}\n ");
+        if (_roughDone)
+        {
+            toReturn += ("Rough: Done\n");
+        }
+        else
+        {
+            toReturn += ("Rough: Not finished\n");
+        }
+        if (_trimDone)
+        {
+            toReturn += ("Trim: Done\n");
+        }
+        else
+        {
+            toReturn += ("Trim: Not finished\n");
+        }
+        toReturn += ("Items:\n");
+        foreach (Item i in _neededItems)
+        {
+            toReturn = toReturn + i.ReportDisplay();
         } 
         return toReturn;
     }

@@ -1,3 +1,4 @@
+using System.Security.AccessControl;
 
 public class Job
 {
@@ -20,6 +21,66 @@ public class Job
     {
     }
 
+    public Employs WhoOnTheJob()
+    {
+        return _onTheJob;
+    }
+    public bool IsActive()
+    {return _active;}
+    public virtual void UpdateJob()
+    {
+        bool run = true;
+        Console.Write("Did you finish the job (yes,no): ");
+        string finished = Console.ReadLine();
+        if (finished == "yes")
+        {
+            _active = false;
+        }
+        else
+        {
+            while (run)
+            {
+                Console.Clear();
+                DisplayJob();
+                Console.WriteLine();
+                Console.WriteLine("Change: ");
+                Console.WriteLine(" 0.Continue");
+                Console.WriteLine(" 1.Cost");
+                Console.WriteLine(" 2.Needed Items");
+                Console.WriteLine(" 3.Employee");
+                Console.Write("What do you want to do:");
+                int whatDo = int.Parse(Console.ReadLine());
+                
+                if (whatDo == 1)
+                {
+                    Console.Write($"Your current cost is ${_cost} what would you like the new cost to be: ");
+                    _cost = int.Parse(Console.ReadLine());
+                }
+                else if (whatDo == 2)
+                {
+                    AddMaterial();
+                }
+                else if (whatDo == 3)
+                {
+                    Load load = new Load();
+                    List<Employs> employs = load.LoadEmploys("employs.txt");
+                    foreach (Employs E in employs)
+                    {E.Display();}
+                    Console.Write("What employee do you want to change the Job to: ");
+                    int change = int.Parse(Console.ReadLine());
+                    foreach (Employs e in employs)
+                    {
+                        if (e.GetID() == change)
+                        {
+                            _onTheJob = e;
+                        }
+                    }
+                }
+                else
+                {run = false;}
+            }
+        }
+    }
     public virtual void CreateJob()
     {
         Console.WriteLine("What is the address");
@@ -50,7 +111,7 @@ public class Job
                 int quantityNeeded = int.Parse(Console.ReadLine());
                 foreach (Item i in Inventory)
                 {
-                    if(i._itemNumber == itemToAdd)
+                    if(i.ItemNum() == itemToAdd)
                     {
                         itemName = i.GetName();
                         i.RemoveInv(quantityNeeded);
@@ -59,7 +120,19 @@ public class Job
                 Save save = new Save();
                 save.saveInventory("Item.txt",Inventory);
                 Item item = new Item(itemName,quantityNeeded,itemToAdd);
-                _neededItems.Add(item);
+                bool notIn = true;
+                foreach (Item i in _neededItems)
+                {
+                    if (i == item)
+                    {
+                        i.AddInv(quantityNeeded);
+                        notIn = false;
+                    }
+                }
+                if (notIn)
+                {
+                    _neededItems.Add(item);
+                }
             }
         }
         _active = true;
@@ -106,7 +179,7 @@ public class Job
                 int quantityNeeded = int.Parse(Console.ReadLine());
                 foreach (Item i in Inventory)
                 {
-                    if(i._itemNumber == itemToAdd)
+                    if(i.ItemNum() == itemToAdd)
                     {
                         itemName = i.GetName();
                         i.RemoveInv(quantityNeeded);
@@ -115,7 +188,19 @@ public class Job
                 Save save = new Save();
                 save.saveInventory("item.txt",Inventory);
                 Item item = new Item(itemName,quantityNeeded,itemToAdd);
-                _neededItems.Add(item);
+                bool notIn = true;
+                foreach (Item i in _neededItems)
+                {
+                    if (i.ItemNum() == item.ItemNum())
+                    {
+                        i.AddInv(quantityNeeded);
+                        notIn = false;
+                    }
+                }
+                if (notIn)
+                {
+                    _neededItems.Add(item);
+                }
             }
         }
         }
@@ -138,21 +223,24 @@ public class Job
             i.Display();
         }
     }
+    
 
-    public bool Remove(string address)
-    {
-        if (address.ToLower() == _address.ToLower())
-        {
-            return true;
-        } 
-        else return false;
-    }
     public virtual string SaveFormat()
     {
         string toReturn = ($"{_address},{_active},{_cost},{_onTheJob.SaveFormat(2)}");
         foreach (Item i in _neededItems)
         {
             toReturn = toReturn + "," + i.SaveFormat(2);
+        } 
+        return toReturn;
+    }
+
+    public virtual string ReportDisplay()
+    {
+        string toReturn = ($"{_address}: ${_cost}\nEmployee:\n{_onTheJob.ReportDisplay()}\n Items:\n");
+        foreach (Item i in _neededItems)
+        {
+            toReturn = toReturn + i.ReportDisplay();
         } 
         return toReturn;
     }

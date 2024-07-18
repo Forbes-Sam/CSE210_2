@@ -1,0 +1,45 @@
+Employees With no Active Job
+3: Jesus Rodriguz, $1000
+4: Fred Johnson, $2000
+5: Tyler Ross, $10
+6: Set Reyes, $50
+
+Active Jobs
+2128 Hickory: $6000
+Employee:
+1: Sam Forbes, $50.5
+ Rough: Done
+Trim: Not finished
+Items:
+  2: Plug 80
+  1: Wire 10
+
+
+1198 Moose: $12000
+Employee:
+7: Kaden Smith, $6000
+ Rough: Not finished
+Trim: Not finished
+Items:
+  4: 1 Gang Box 200
+  3: Switch 100
+  2: Plug 1000
+  1: Wire 40
+
+
+1198 kenwood: $9000
+Employee:
+7: Kaden Smith, $6000
+ Rough: Not finished
+Trim: Not finished
+Items:
+  1: Wire 20
+  2: Plug 100
+  3: Switch 100
+  6: Can Lights 1000
+
+
+
+Items with no inventory: 
+  5: disc lights 0
+
