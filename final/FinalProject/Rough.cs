@@ -1,25 +1,38 @@
 
 public class Rough : Job
 {
+    private string _company;
     private bool _roughDone;
     private bool _trimDone;
 
-    public Rough() : base()
+    public Rough(string company, bool rough, bool trim, string address, List<Item> items, bool active, float cost, Employs job) : base()
     {
+        _address = address;
+        _neededItems = items;
+        _active = active;
+        _cost = cost;
+        _onTheJob = job;
+        _company = company;
+        _roughDone = rough;
+        _trimDone = trim;
+    }
+    public Rough()
+    {}
+
+    public override void CreateJob()
+    {
+        base.CreateJob();
+        Console.Write("What is the company name: ");
+        _company = Console.ReadLine();
         _roughDone = false;
         _trimDone = false;
     }
 
-    public void RoughMes()
-    {}
-    public void TrimMes()
-    {}
-
     public override void DisplayJob()
     {
         Console.WriteLine($"{_address}:");
-        Console.WriteLine($"    Cost: ${_cost}");
-        Console.WriteLine($"    Employee: {_onTheJob}");
+        Console.WriteLine($"Cost: ${_cost}");
+        _onTheJob.Display();
         if (_roughDone)
         {
             Console.WriteLine("Rough: Done");
@@ -44,4 +57,14 @@ public class Rough : Job
         }
 
     }
+    public override string SaveFormat()
+    {
+        string toReturn = ($"Rough,{_address},{_active},{_cost},{_company},{_roughDone},{_trimDone},{_onTheJob.SaveFormat(2)}");
+        foreach (Item i in _neededItems)
+        {
+            toReturn = toReturn + "," + i.SaveFormat(2);
+        } 
+        return toReturn;
+    }
+
 }

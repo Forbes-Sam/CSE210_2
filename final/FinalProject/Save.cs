@@ -7,9 +7,8 @@ public class Save
             writer.WriteLine("Inventory(ItemNum,Item,Quantity)");
             foreach(Item i in items)
             {
-                writer.WriteLine(i.SaveFormat());
+                writer.WriteLine(i.SaveFormat(1));
             }
-        Console.WriteLine("Text saved to file successfully!");
         }
 
     }
@@ -19,12 +18,23 @@ public class Save
 
         using (StreamWriter writer = new StreamWriter(filePath))
         {
-            writer.WriteLine("Employs(EmploysNum,firstName,lastName,money,contractor,amountOwed)");
+            writer.WriteLine("Employs(EmploysNum,firstName,lastName,money,contractor)");
             foreach(Employs i in employs)
+            {
+                writer.WriteLine(i.SaveFormat(1));
+            }
+        }
+    }
+    public void SaveJobs(string filePath, List<Job> jobs)
+    {
+
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            writer.WriteLine("Jobs(address,active,cost,employee(firstname:lastname:money:employsNum:contractor:amountOwed),items(item:quantity:itemNum)) Roughs(Rough,address,active,cost,company,rough,trim,employee(firstname:lastname:money:employsNum:contractor:amountOwed),items(item:quantity:itemNum))");
+            foreach(Job i in jobs)
             {
                 writer.WriteLine(i.SaveFormat());
             }
-        Console.WriteLine("Text saved to file successfully!");
         }
     }
 }

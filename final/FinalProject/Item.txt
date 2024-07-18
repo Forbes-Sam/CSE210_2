@@ -1,0 +1,5 @@
+Inventory(ItemNum,Item,Quantity)
+Wire,1440,1
+Plug,6900,2
+Switch,9820,3
+1 Gang Box,9800,4

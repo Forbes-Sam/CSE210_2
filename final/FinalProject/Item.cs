@@ -10,16 +10,30 @@ public class Item
         _quantity = num;
         _itemNumber = itemNumber;
     }
-
-    public void AddInv(int Add, int ItemNum, List<Item> items)
+    public Item()
     {
-        foreach (Item item in items)
-        {
-            if (item._itemNumber == ItemNum)
-            {
-                item._quantity += Add;
-            }
-        }
+        _item = "";
+        _quantity = 0;
+        _itemNumber = 0;
+    }
+
+    public void NewItem()
+    {
+        Console.Write("What is the items name: ");
+        _item = Console.ReadLine();
+        Console.Write("What is the quantity of this item: ");
+        _quantity = int.Parse(Console.ReadLine());
+
+        Load load = new Load();
+        List<Item> items = load.LoadInventory("item.txt");
+        int itemNum = items.Count() + 1;
+        _itemNumber = itemNum;
+
+    }
+    public void AddInv(int Add)
+    {
+
+        _quantity += Add;
     }
     public void RemoveInv(int Remove)
     {
@@ -34,6 +48,15 @@ public class Item
     {
         return _item;
     }
-    public string SaveFormat()
-    {return ($"{_itemNumber},{_item},{_quantity}");}
+    public string SaveFormat(int format)
+    {
+        if (format == 2)
+        {
+            return ($"{_item}:{_quantity}:{_itemNumber}");
+        }
+        else
+        {
+        return ($"{_item},{_quantity},{_itemNumber}");
+        }
+    }
 }

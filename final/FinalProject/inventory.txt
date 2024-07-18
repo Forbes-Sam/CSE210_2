@@ -1,3 +1,0 @@
-Inventory(ItemNum,Item,Quantity)
-2,Plug,8000
-3,Switch,10000

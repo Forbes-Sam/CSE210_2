@@ -20,7 +20,7 @@ public class Job
     {
     }
 
-    public void CreateJob()
+    public virtual void CreateJob()
     {
         Console.WriteLine("What is the address");
         _address = Console.ReadLine();
@@ -29,7 +29,9 @@ public class Job
         List<Item> Inventory;
         List<Employs> employs;
         employs = load.LoadEmploys("employs.txt");
-        Inventory = load.LoadInventory("inventory.txt");
+        Inventory = load.LoadInventory("item.txt");
+
+        _neededItems = [];
         
         int itemToAdd = 1;
         while(itemToAdd != 0)
@@ -40,10 +42,10 @@ public class Job
                 i.Display();
             }
             Console.Write("\nWhat item would you like to add: ");
+            itemToAdd = int.Parse(Console.ReadLine());
             if (itemToAdd != 0)
             {
                 string itemName = "";
-                itemToAdd = int.Parse(Console.ReadLine());
                 Console.Write("What quantity of items are needed for this: ");
                 int quantityNeeded = int.Parse(Console.ReadLine());
                 foreach (Item i in Inventory)
@@ -54,6 +56,8 @@ public class Job
                         i.RemoveInv(quantityNeeded);
                     }
                 }
+                Save save = new Save();
+                save.saveInventory("Item.txt",Inventory);
                 Item item = new Item(itemName,quantityNeeded,itemToAdd);
                 _neededItems.Add(item);
             }
@@ -72,7 +76,7 @@ public class Job
         int whatNum = int.Parse(Console.ReadLine());
         foreach (Employs i in employs)
         {
-            if (i._employsNum == whatNum)
+            if (i.GetID() == whatNum)
             {
                 _onTheJob = i;
             }
@@ -83,7 +87,7 @@ public class Job
     {
         Load load = new Load();
         List<Item> Inventory;
-        Inventory = load.LoadInventory("inventory.txt");
+        Inventory = load.LoadInventory("item.txt");
 
         int itemToAdd = 1;
         while(itemToAdd != 0)
@@ -94,10 +98,10 @@ public class Job
                 i.Display();
             }
             Console.Write("\nWhat item would you like to add: ");
+            itemToAdd = int.Parse(Console.ReadLine());
             if (itemToAdd != 0)
             {
                 string itemName = "";
-                itemToAdd = int.Parse(Console.ReadLine());
                 Console.Write("What quantity of items are needed for this: ");
                 int quantityNeeded = int.Parse(Console.ReadLine());
                 foreach (Item i in Inventory)
@@ -108,6 +112,8 @@ public class Job
                         i.RemoveInv(quantityNeeded);
                     }
                 }
+                Save save = new Save();
+                save.saveInventory("item.txt",Inventory);
                 Item item = new Item(itemName,quantityNeeded,itemToAdd);
                 _neededItems.Add(item);
             }
@@ -121,8 +127,8 @@ public class Job
 
     public virtual void DisplayJob()
     {
-        Console.Write($"{_address}:");
-        Console.WriteLine($"    Cost: ${_cost}");
+        Console.WriteLine($"{_address}:");
+        Console.WriteLine($"Cost: ${_cost}");
         Console.WriteLine($"Employee:");
         _onTheJob.Display();
         Console.WriteLine( "Items:");
@@ -131,5 +137,23 @@ public class Job
             Console.Write( "     ");
             i.Display();
         }
+    }
+
+    public bool Remove(string address)
+    {
+        if (address.ToLower() == _address.ToLower())
+        {
+            return true;
+        } 
+        else return false;
+    }
+    public virtual string SaveFormat()
+    {
+        string toReturn = ($"{_address},{_active},{_cost},{_onTheJob.SaveFormat(2)}");
+        foreach (Item i in _neededItems)
+        {
+            toReturn = toReturn + "," + i.SaveFormat(2);
+        } 
+        return toReturn;
     }
 }

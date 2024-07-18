@@ -1,5 +1,7 @@
-Employs(EmploysNum,firstName,lastName,money,contractor,amountOwed)
-1,Sam,Forbes,50.5,False,0
-2,John,Wall,24.8,False,0
-3,Jesus,Rodriguz,1000,True,2000
-4,Fred,Johnson,2000,True,8000
+Employs(EmploysNum,firstName,lastName,money,contractor)
+Sam,Forbes,50.5,1,False
+John,Wall,24.8,2,False
+Jesus,Rodriguz,1000,3,True
+Fred,Johnson,2000,4,True
+Tyler,Ross,10,5,False
+Set,Reyes,50,6,False
