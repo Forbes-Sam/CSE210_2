@@ -19,6 +19,7 @@ public class Rough : Job
     public Rough()
     {}
 
+    // Override with the original code from Job.cs allows you to change the status of Rough and Trim 
     public override void UpdateJob()
     {
         base.UpdateJob();
@@ -40,6 +41,8 @@ public class Rough : Job
         
 
     }
+    
+    // Also an override with the original and allows you to add the company that requested the job
     public override void CreateJob()
     {
         base.CreateJob();
@@ -49,6 +52,7 @@ public class Rough : Job
         _trimDone = false;
     }
 
+    // Displays the Job
     public override void DisplayJob()
     {
         Console.WriteLine(_company);
@@ -79,6 +83,8 @@ public class Rough : Job
         }
 
     }
+    
+    // Format that it is saved in
     public override string SaveFormat()
     {
         string toReturn = ($"Rough,{_address},{_active},{_cost},{_company},{_roughDone},{_trimDone},{_onTheJob.SaveFormat(2)}");
@@ -89,6 +95,7 @@ public class Rough : Job
         return toReturn;
     }
 
+    // Format the report that is used in the report.
     public override string ReportDisplay()
     {
         string toReturn = ($"{_address}: ${_cost}\nEmployee:\n{_onTheJob.ReportDisplay()}\n ");

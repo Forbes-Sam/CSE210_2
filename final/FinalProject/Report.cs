@@ -6,6 +6,7 @@ public class Report
 
     public Report()
     {
+        // Loads up the master lists
         Load load = new Load();
         _jobs = load.LoadJob("jobs.txt");
         _employs = load.LoadEmploys("employs.txt");
@@ -17,7 +18,7 @@ public class Report
 
         using (StreamWriter writer = new StreamWriter("Report.txt"))
         {
-            
+            // report on employees with no joab
             writer.WriteLine("Employees With no Active Job");
             foreach (Employs e in _employs)
             {
@@ -33,7 +34,7 @@ public class Report
                 if (noJob) 
                 {writer.WriteLine(e.ReportDisplay());}
             }
-
+            // reports on active jobs
             writer.WriteLine("\nActive Jobs");
 
             foreach (Job j in _jobs)
@@ -43,7 +44,7 @@ public class Report
                     writer.WriteLine($"{j.ReportDisplay()}\n");
                 }
             }
-
+            // report on low inventory
             writer.WriteLine("\nItems with no inventory: ");
             foreach (Item i in _inventory)
             {

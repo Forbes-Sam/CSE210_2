@@ -14,14 +14,14 @@ public class Password
         _value = "password";
     }
 
-    // Optional methods for password management
-
+    // Checks if the userName is right and returns a true if it is
     public bool CheckUserName(string attemptedUserName)
     {
         return _userName == attemptedUserName;
     }
+    // Checks if the password is right and returns a true if it is
     public bool CheckPassword(string attemptedPassword)
     {
-        return _value == attemptedPassword; // Compares passwords
+        return _value == attemptedPassword; 
     }
 }

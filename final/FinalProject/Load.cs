@@ -13,7 +13,7 @@ public class Load
         // Read all lines from the text file
         string[] lines = File.ReadAllLines(filePath);
 
-        // Skip the header line (assuming the first line has column names)
+        // Skip the header line
         for (int i = 1; i < lines.Length; i++)
         {
             string line = lines[i];
@@ -41,7 +41,7 @@ public class Load
         // Read all lines from the text file
         string[] lines = File.ReadAllLines(filePath);
 
-        // Skip the header line (assuming the first line has column names)
+        // Skip the header line
         for (int i = 1; i < lines.Length; i++)
         {
             string line = lines[i];
@@ -49,7 +49,7 @@ public class Load
             // Split the line into comma-separated values
             string[] parts = line.Split(',');
 
-            // Extract item name, item number, and quantity
+            // Extract needed items
             
             string firstname = parts[0];
             string lastname = parts[1];
@@ -57,7 +57,7 @@ public class Load
             int employsNum = int.Parse(parts[3]);
             bool contractor = bool.Parse(parts[4]);
 
-            // Create a new Item object and add it to the list
+            // Create a new Employee
             employs.Add(new Employs(firstname,lastname,money,employsNum,contractor));
         }
 
@@ -71,16 +71,16 @@ public class Load
         // Read all lines from the text file
         string[] lines = File.ReadAllLines(filePath);
 
-        // Skip the header line (assuming the first line has column names)
+        // Skip the header line
         for (int i = 1; i < lines.Length; i++)
         {
             string line = lines[i];
             // Split the line into comma-separated values
             string[] parts = line.Split(',');
-
+            //checks to see if it is a rough/trim or a job
             if (parts[0] == "Rough")
             {
-                // Extract item name, item number, and quantity
+                // Extract items needed for Jobs
                 string address = parts[1];
                 bool active = bool.Parse(parts[2]);
                 float cost = float.Parse(parts[3]);
@@ -93,6 +93,7 @@ public class Load
                 //firstname,lastname,money,employsNum,contractor,
                 Employs employs = new Employs(emp[0],emp[1],float.Parse(emp[2]),int.Parse(emp[3]),bool.Parse(emp[4]));
             
+                //gets the items from the list
                 List<Item> items = [];
                 int count = 0;
                 foreach (string inventory in parts)
@@ -105,13 +106,13 @@ public class Load
                     }
                     count ++;
                 }
-                // Create a new Item object and add it to the list
+                // Create a new Rough object and add it to the list
                 jobs.Add(new Rough(company,rough,trim,address, items, active, cost, employs));
             }
             else
             {
 
-                // Extract item name, item number, and quantity
+                // Extract needed items for job
                 string address = parts[0];
                 bool active = bool.Parse(parts[1]);
                 float cost = float.Parse(parts[2]);
@@ -120,7 +121,7 @@ public class Load
                 string[] emp = parts[3].Split(':');
                 //firstname,lastname,money,employsNum,contractor,
                 Employs employs = new Employs(emp[0],emp[1],float.Parse(emp[2]),int.Parse(emp[3]),bool.Parse(emp[4]));
-            
+                // gets the items
                 List<Item> items = [];
                 int count = 0;
                 foreach (string inventory in parts)
@@ -133,7 +134,7 @@ public class Load
                     }
                     count ++;
                 }
-                // Create a new Item object and add it to the list
+                // Create a new job
                 jobs.Add(new Job(address, items, active, cost, employs));
             }
         }

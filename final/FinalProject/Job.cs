@@ -1,4 +1,6 @@
-using System.Security.AccessControl;
+// This class is to save jobs that might be requested for by a consumer 
+// It has a child class called rough
+using System.ComponentModel.Design;
 
 public class Job
 {
@@ -20,15 +22,18 @@ public class Job
     public Job()
     {
     }
-
+    //returns the Employee on the job
     public Employs WhoOnTheJob()
     {
         return _onTheJob;
     }
+    // returns whether the job is active or not as a bool
     public bool IsActive()
     {return _active;}
+    // Updates existing jobs
     public virtual void UpdateJob()
     {
+        // checks to see if you finished the job
         bool run = true;
         Console.Write("Did you finish the job (yes,no): ");
         string finished = Console.ReadLine();
@@ -38,6 +43,7 @@ public class Job
         }
         else
         {
+            // allowes you to change cost items and which employee is on the job
             while (run)
             {
                 Console.Clear();
@@ -60,6 +66,7 @@ public class Job
                 {
                     AddMaterial();
                 }
+                //changes the employee on the job
                 else if (whatDo == 3)
                 {
                     Load load = new Load();
@@ -81,6 +88,7 @@ public class Job
             }
         }
     }
+    // Creates new job that is already in a list
     public virtual void CreateJob()
     {
         Console.WriteLine("What is the address");
@@ -98,7 +106,7 @@ public class Job
         while(itemToAdd != 0)
         {
             Console.WriteLine("0. quit");
-            foreach (Item i in Inventory)
+            foreach (Item i in Inventory) // displays inventory
             {
                 i.Display();
             }
@@ -108,8 +116,8 @@ public class Job
             {
                 string itemName = "";
                 Console.Write("What quantity of items are needed for this: ");
-                int quantityNeeded = int.Parse(Console.ReadLine());
-                foreach (Item i in Inventory)
+                int quantityNeeded = int.Parse(Console.ReadLine()); // gets quantity
+                foreach (Item i in Inventory) // removes inventory from the master list
                 {
                     if(i.ItemNum() == itemToAdd)
                     {
@@ -118,9 +126,11 @@ public class Job
                     }
                 }
                 Save save = new Save();
-                save.saveInventory("Item.txt",Inventory);
+                save.saveInventory("Item.txt",Inventory); // saves updated inventory
                 Item item = new Item(itemName,quantityNeeded,itemToAdd);
                 bool notIn = true;
+                // Checks to see if item is already in the list and if it is it just adds the amount to the existing
+                // item or if its not in the list it adds a new item
                 foreach (Item i in _neededItems)
                 {
                     if (i == item)
@@ -135,11 +145,12 @@ public class Job
                 }
             }
         }
+        // Sets job to active
         _active = true;
-
+        // Gets cost
         Console.Write("What is the cost in $");
         _cost = float.Parse(Console.ReadLine());
-
+        // displays the employees and adds one to the job
         employs = load.LoadEmploys("employs.txt");
         foreach (Employs i in employs)
         {
@@ -147,7 +158,7 @@ public class Job
         }
         Console.WriteLine("Which employ do you want on the job?");
         int whatNum = int.Parse(Console.ReadLine());
-        foreach (Employs i in employs)
+        foreach (Employs i in employs) //adds employee to the list
         {
             if (i.GetID() == whatNum)
             {
@@ -156,6 +167,7 @@ public class Job
         }
     }
 
+    // this is very similar to the inventory adder in CreateJob()
     public void AddMaterial()
     {
         Load load = new Load();
@@ -177,7 +189,7 @@ public class Job
                 string itemName = "";
                 Console.Write("What quantity of items are needed for this: ");
                 int quantityNeeded = int.Parse(Console.ReadLine());
-                foreach (Item i in Inventory)
+                foreach (Item i in Inventory) // removes from master list
                 {
                     if(i.ItemNum() == itemToAdd)
                     {
@@ -186,10 +198,10 @@ public class Job
                     }
                 }
                 Save save = new Save();
-                save.saveInventory("item.txt",Inventory);
+                save.saveInventory("item.txt",Inventory); // saves updated list
                 Item item = new Item(itemName,quantityNeeded,itemToAdd);
                 bool notIn = true;
-                foreach (Item i in _neededItems)
+                foreach (Item i in _neededItems) // checks if it is in list already and if not adds it
                 {
                     if (i.ItemNum() == item.ItemNum())
                     {
@@ -203,13 +215,9 @@ public class Job
                 }
             }
         }
-        }
-
-    public void Done()
-    {
-        _active = false;
     }
-
+ 
+    // displays the Job
     public virtual void DisplayJob()
     {
         Console.WriteLine($"{_address}:");
@@ -217,14 +225,14 @@ public class Job
         Console.WriteLine($"Employee:");
         _onTheJob.Display();
         Console.WriteLine( "Items:");
-        foreach (Item i in _neededItems)
+        foreach (Item i in _neededItems) // Displays the items
         {
             Console.Write( "     ");
             i.Display();
         }
     }
     
-
+    // returns a string that is formatted to how it is saved
     public virtual string SaveFormat()
     {
         string toReturn = ($"{_address},{_active},{_cost},{_onTheJob.SaveFormat(2)}");
@@ -235,10 +243,11 @@ public class Job
         return toReturn;
     }
 
+    // returns a report on the item for the report document
     public virtual string ReportDisplay()
     {
         string toReturn = ($"{_address}: ${_cost}\nEmployee:\n{_onTheJob.ReportDisplay()}\n Items:\n");
-        foreach (Item i in _neededItems)
+        foreach (Item i in _neededItems) // adds the items to the string
         {
             toReturn = toReturn + i.ReportDisplay();
         } 

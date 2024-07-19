@@ -1,5 +1,7 @@
 public class Save
 {
+    // These are all pretty much the same with the exception of the header on each save 
+    // all of these just save the major classes to a txt file
     public void saveInventory(string filePath, List<Item> items)
     {
         using (StreamWriter writer = new StreamWriter(filePath))
@@ -12,7 +14,6 @@ public class Save
         }
 
     }
-
     public void saveEmploys(string filePath, List<Employs> employs)
     {
 
