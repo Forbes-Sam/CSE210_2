@@ -2,5 +2,6 @@ Jobs(address,active,cost,employee(firstname:lastname:money:employsNum:contractor
 2120 Beechwood,False,5000,Jesus:Rodriguz:1000:3:True,Plug:50:2
 1148 canvas,False,8000,Fred:Johnson:2000:4:True,Wire:20:1,Plug:100:2,Switch:80:3
 Rough,2128 Hickory,True,6000,LL,True,False,Sam:Forbes:50.5:1:False,Plug:80:2,Wire:10:1
-Rough,1198 Moose,True,12000,Highland Homes,False,False,Kaden:Smith:6000:7:True,1 Gang Box:200:4,Switch:100:3,Plug:1000:2,Wire:40:1
+Rough,1198 Moose,True,12000,Highland Homes,False,False,John:Wall:24.8:2:False,1 Gang Box:200:4,Switch:100:3,Plug:1000:2,Wire:40:1
 Rough,1198 kenwood,True,9000,Homland,False,False,Kaden:Smith:6000:7:True,Wire:20:1,Plug:100:2,Switch:100:3,Can Lights:1000:6
+9880 shadowbrook,False,2000,Set:Reyes:50:6:False,Can Lights:100:6
